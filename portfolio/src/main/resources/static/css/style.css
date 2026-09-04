@@ -468,55 +468,11 @@ h2.h {
     }
 }
 
-/* ================= CERTIFICATES ================= */
-.certificates-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-top: 32px;
-}
-
-.cert-item {
-    padding: 20px;
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    background: var(--paper-soft);
-    transition: all 0.25s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.cert-item:hover {
-    border-color: var(--rust);
-    box-shadow: 0 4px 12px rgba(181, 84, 42, 0.12);
-}
-
-.cert-item h3 {
-    margin: 0 0 8px;
-    font-family: var(--serif);
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: var(--ink);
-}
-
-.cert-issuer {
-    margin: 0 0 8px;
-    color: var(--ink-soft);
-    font-size: 0.9rem;
-    font-family: var(--mono);
-}
-
-.cert-year {
-    display: inline-block;
-    font-family: var(--mono);
-    font-size: 0.8rem;
-    color: var(--rust);
-    margin-bottom: 12px;
-    font-weight: 500;
-}
-
+/* ================= CERTIFICATE BUTTON (used inside internship cards) ================= */
 .cert-view-btn {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
     padding: 8px 14px;
     background: var(--rust);
     color: var(--paper);
@@ -537,22 +493,6 @@ h2.h {
 
 .cert-view-btn:active {
     transform: translateY(0);
-}
-
-@media (max-width: 900px) {
-    .certificates-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 720px) {
-    .certificates-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .cert-item {
-        padding: 16px;
-    }
 }
 
 /* ================= INTERNSHIPS ================= */
@@ -591,6 +531,15 @@ h2.h {
     flex: 1;
 }
 
+/* groups the date badge and the certificate button together, stacked */
+.meta-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
 .date-badge {
     display: inline-block;
     padding: 6px 10px;
@@ -601,7 +550,6 @@ h2.h {
     font-size: 0.75rem;
     font-weight: 500;
     white-space: nowrap;
-    flex-shrink: 0;
 }
 
 .internship-desc {
@@ -617,9 +565,8 @@ h2.h {
         gap: 8px;
     }
 
-    .date-badge {
-        display: block;
-        width: fit-content;
+    .meta-col {
+        align-items: flex-start;
     }
 
     .internship-card {
