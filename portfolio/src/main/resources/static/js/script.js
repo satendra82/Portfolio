@@ -20,7 +20,6 @@ navLinks.querySelectorAll('a').forEach(function (link) {
 const lines = document.querySelectorAll('#lines line');
 const nodes = document.querySelectorAll('#nodes circle');
 
-// draws the connecting lines one by one (adds 'drawn' class with a delay)
 function drawNetwork() {
     for (let i = 0; i < lines.length; i++) {
         setTimeout(function () {
@@ -55,5 +54,14 @@ const contactObserver = new IntersectionObserver((entries) => {
             entry.target.classList.add('visible');
         }
     });
-}, { threshold: 0 });
-contactItems.forEach(item => contactObserver.observe(item));
+}, { threshold: 0, rootMargin: '0px 0px -50px 0px' });
+
+contactItems.forEach(function(item) {
+    // agar element pehle se screen pe visible hai toh turant show karo
+    const rect = item.getBoundingClientRect();
+    if (rect.top < window.innerHeight) {
+        item.classList.add('visible');
+    } else {
+        contactObserver.observe(item);
+    }
+});
