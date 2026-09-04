@@ -29,17 +29,17 @@ function drawNetwork() {
     }
 }
 
-// only start the animation once the svg actually scrolls into view
-const svgObserver = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-            drawNetwork();
-            svgObserver.disconnect();
-        }
-    });
-}, { threshold: 0.3 });
+// the hero is always visible as soon as the page loads, so just draw
+// the network straight away instead of waiting to detect a scroll
+drawNetwork();
 
-svgObserver.observe(document.getElementById('netSvg'));
+// if the user has asked for reduced motion, stop the flowing dots
+// (the CSS media query already handles css animations, but SMIL/animateMotion
+// needs to be turned off manually like this)
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const flowDots = document.getElementById('flow-dots');
+    if (flowDots) flowDots.remove();
+}
 
 // every second or so, light up a random node just for a nice touch
 function pulse() {
