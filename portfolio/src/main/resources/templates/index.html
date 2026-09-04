@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satendra Lodhi - CSE (AI & ML) Student</title>
+
+    <!-- my css file -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-mark">Satendra Lodhi</div>
+
+        <!-- hamburger button, only shows up on small screens -->
+        <button class="nav-toggle" id="navToggle" aria-label="menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#internships">Internships</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ===== HERO / INTRO SECTION ===== -->
+<header class="hero">
+    <div class="hero-inner">
+
+        <div>
+            <p class="eyebrow-line">B.Tech, Computer Science Engineering (AI &amp; ML)</p>
+            <h1 class="title">Satendra Lodhi</h1>
+            <p class="lede">
+                I build full-stack web applications - from <mark>Spring Boot backends</mark>
+                to responsive front ends - turning coursework into real, working products.
+            </p>
+
+            <div class="cta-row">
+                <a class="btn btn-solid" href="#projects">View projects</a>
+
+                <a class="btn btn-outline"
+                   href="/static/certificates/satendralodhi.pdf"
+                   download="Satendra_Lodhi_Resume.pdf">
+                    Download Resume
+                </a>
+            </div>
+        </div>
+
+        <!-- small neural-network style graphic, just for looks -->
+        <div>
+            <svg class="net-svg" id="netSvg" viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg">
+
+                <!-- lines connecting the dots -->
+                <g id="lines">
+                    <line x1="50" y1="40"  x2="160" y2="60"/>
+                    <line x1="50" y1="100" x2="160" y2="60"/>
+                    <line x1="50" y1="100" x2="160" y2="130"/>
+                    <line x1="50" y1="160" x2="160" y2="130"/>
+                    <line x1="50" y1="160" x2="160" y2="200"/>
+                    <line x1="50" y1="220" x2="160" y2="200"/>
+                    <line x1="160" y1="60"  x2="260" y2="90"/>
+                    <line x1="160" y1="130" x2="260" y2="90"/>
+                    <line x1="160" y1="130" x2="260" y2="170"/>
+                    <line x1="160" y1="200" x2="260" y2="170"/>
+                </g>
+
+                <!-- the dots (nodes) themselves -->
+                <g id="nodes">
+                    <circle cx="50" cy="40" r="9"></circle>
+                    <circle cx="50" cy="100" r="9"></circle>
+                    <circle cx="50" cy="160" r="9"></circle>
+                    <circle cx="50" cy="220" r="9"></circle>
+                    <circle cx="160" cy="60" r="9"></circle>
+                    <circle cx="160" cy="130" r="9"></circle>
+                    <circle cx="160" cy="200" r="9"></circle>
+                    <circle cx="260" cy="90" r="9"></circle>
+                    <circle cx="260" cy="170" r="9"></circle>
+                </g>
+            </svg>
+        </div>
+
+    </div>
+</header>
+
+<main>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about">
+        <div class="wrap about-grid">
+            <div>
+                <div class="section-head">
+                    <h2 class="h">About</h2>
+                </div>
+
+                <p>
+                    I'm a B.Tech student in Computer Science Engineering (AI &amp; ML) with hands-on
+                    experience in Java, Spring Boot, HTML, CSS, JavaScript, and PostgreSQL. I'm passionate
+                    about full-stack web development and building applications that work end to end,
+                    not just in a demo.
+                </p>
+                <p>
+                    I'm looking for an entry-level role or internship where I can apply what I've built
+                    so far - booking platforms, admin dashboards, payment integrations - while learning
+                    from real industry experience.
+                </p>
+            </div>
+
+            <!-- quick facts, like a mini resume card -->
+            <ul class="fact-list">
+                <li><span>Degree</span><span>B.Tech CSE (AI &amp; ML)</span></li>
+                <li><span>Institution</span><span>BTIRT, Sagar</span></li>
+                <li><span>Duration</span><span>2023 - 2027 (Pursuing)</span></li>
+                <li><span>CGPA</span><span>6.5 (Approx)</span></li>
+                <li><span>Based in</span><span>Sagar, M.P.</span></li>
+                <li><span>Open to</span><span>Internships, entry-level roles</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section id="skills">
+        <div class="wrap">
+            <div class="section-head">
+                <h2 class="h">Skills</h2>
+                <p class="section-sub">
+                    Organised the way I actually use them - languages first, then the frameworks
+                    and tools built on top.
+                </p>
+            </div>
+
+            <div class="layers">
+                <div class="layer">
+                    <p class="layer-name">Languages</p>
+                    <div class="skill-tags">
+                        <span>C</span><span>C++</span><span>Java</span><span>HTML</span><span>CSS</span>
+                    </div>
+                </div>
+
+                <div class="layer">
+                    <p class="layer-name">Frameworks &amp; Database</p>
+                    <div class="skill-tags">
+                        <span>Spring Boot</span><span>Thymeleaf</span><span>PostgreSQL</span>
+                    </div>
+                </div>
+
+                <div class="layer">
+                    <p class="layer-name">Tools</p>
+                    <div class="skill-tags">
+                        <span>VS Code</span><span>IntelliJ IDEA</span><span>GitHub</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects">
+        <div class="wrap">
+            <div class="section-head">
+                <h2 class="h">Projects</h2>
+                <p class="section-sub">Full-stack and front-end projects I've built, from database schema to UI.</p>
+            </div>
+
+            <div class="projects">
+
+                <!-- project 1 -->
+                <div class="project" data-tag="Full-Stack">
+                    <h3>XansaStay - Hotel Management System</h3>
+                    <p>
+                        A full-stack hotel booking platform with room browsing, availability search,
+                        booking, favourites, and Razorpay payment integration. Includes an admin dashboard
+                        to manage rooms, bookings, guests, checkouts, reviews, and discount coupons - with
+                        multi-image upload and room status tracking.
+                    </p>
+                    <span class="metric">Admin dashboard + payments</span>
+                    <div class="tech-row">
+                        <span>Java</span><span>Spring Boot</span><span>Thymeleaf</span><span>PostgreSQL</span>
+                    </div>
+                    <div class="proj-links">
+                        <a href="#">Code</a>
+                        <a href="#">Live demo</a>
+                    </div>
+                </div>
+
+                <!-- project 2 -->
+                <div class="project" data-tag="Frontend">
+                    <h3>Amazon Clone Website</h3>
+                    <p>
+                        A responsive Amazon-inspired e-commerce front end with a homepage, navigation bar,
+                        product sections, and footer - built with product cards, category sections, and
+                        offer banners.
+                    </p>
+                    <span class="metric">Fully responsive UI</span>
+                    <div class="tech-row">
+                        <span>HTML</span><span>CSS</span>
+                    </div>
+                    <div class="proj-links">
+                        <a href="#">Code</a>
+                        <a href="#">Live demo</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== INTERNSHIPS ===== -->
+    <section id="internships">
+        <div class="wrap">
+            <div class="section-head">
+                <h2 class="h">Virtual Internships</h2>
+                <p class="section-sub">
+                    Completed through industry-leading platforms &amp; AICTE-EduSkills. Hands-on learning in cutting-edge technologies.
+                </p>
+            </div>
+
+            <div class="internships-timeline">
+                <div class="internship-card">
+                    <div class="internship-header">
+                        <h3>Google Android Developer Virtual Internship</h3>
+                        <span class="date-badge">Apr - Jun 2024</span>
+                    </div>
+                    <p class="internship-desc">Mobile app development with Android ecosystem, focusing on native development practices.</p>
+                </div>
+
+                <div class="internship-card">
+                    <div class="internship-header">
+                        <h3>Zscaler Zero Trust Cloud Security Virtual Internship</h3>
+                        <span class="date-badge">Jul - Sep 2024</span>
+                    </div>
+                    <p class="internship-desc">Cloud security architecture, zero-trust model implementation, and modern cybersecurity practices.</p>
+                </div>
+
+                <div class="internship-card">
+                    <div class="internship-header">
+                        <h3>AWS Cloud Virtual Internship</h3>
+                        <span class="date-badge">Oct - Dec 2024</span>
+                    </div>
+                    <p class="internship-desc">AWS services, cloud infrastructure, EC2, S3, RDS, and building scalable cloud solutions.</p>
+                </div>
+
+                <div class="internship-card">
+                    <div class="internship-header">
+                        <h3>Zscaler Networking Virtual Internship</h3>
+                        <span class="date-badge">Jan - Mar 2025</span>
+                    </div>
+                    <p class="internship-desc">Network security fundamentals, routing protocols, and enterprise networking solutions.</p>
+                </div>
+
+                <div class="internship-card">
+                    <div class="internship-header">
+                        <h3>EduSkills Academy Ethical Hacking Virtual Internship</h3>
+                        <span class="date-badge">Jul - Sep 2025</span>
+                    </div>
+                    <p class="internship-desc">Penetration testing, vulnerability assessment, and ethical hacking methodologies.</p>
+                </div>
+
+                <div class="internship-card">
+                    <div class="internship-header">
+                        <h3>UI-Path Automation Business Analyst Associate Virtual Internship</h3>
+                        <span class="date-badge">Oct - Dec 2025</span>
+                    </div>
+                    <p class="internship-desc">RPA concepts, UiPath platform, process automation, and business process optimization.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CERTIFICATIONS ===== -->
+    <section id="certifications">
+        <div class="wrap">
+            <div class="section-head">
+                <h2 class="h">Certifications</h2>
+                <p class="section-sub">
+                    Industry-recognized certifications and achievements in web development, cloud, and cybersecurity.
+                </p>
+            </div>
+
+            <div class="certificates-grid">
+                <!-- Certificate 1 -->
+                <div class="cert-item">
+                    <div>
+                        <h3>Java Full Stack Development</h3>
+                        <p class="cert-issuer">AICTE - EduSkills</p>
+                        <span class="cert-year">2024</span>
+                    </div>
+                    <button class="cert-view-btn" onclick="viewCertificate('Java Full Stack Development')">View Certificate</button>
+                </div>
+
+                <!-- Certificate 2 -->
+                <div class="cert-item">
+                    <div>
+                        <h3>AI &amp; ML Fundamentals</h3>
+                        <p class="cert-issuer">AICTE - EduSkills</p>
+                        <span class="cert-year">2024</span>
+                    </div>
+                    <button class="cert-view-btn" onclick="viewCertificate('AI & ML Fundamentals')">View Certificate</button>
+                </div>
+
+                <!-- Certificate 3 -->
+                <div class="cert-item">
+                    <div>
+                        <h3>Google Android Developer</h3>
+                        <p class="cert-issuer">Google</p>
+                        <span class="cert-year">2024</span>
+                    </div>
+                    <button class="cert-view-btn" onclick="viewCertificate('Google Android Developer')">View Certificate</button>
+                </div>
+
+                <!-- Certificate 4 -->
+                <div class="cert-item">
+                    <div>
+                        <h3>AWS Cloud Fundamentals</h3>
+                        <p class="cert-issuer">AWS Academy</p>
+                        <span class="cert-year">2024</span>
+                    </div>
+                    <button class="cert-view-btn" onclick="viewCertificate('AWS Cloud Fundamentals')">View Certificate</button>
+                </div>
+
+                <!-- Certificate 5 -->
+                <div class="cert-item">
+                    <div>
+                        <h3>Zero Trust Cloud Security</h3>
+                        <p class="cert-issuer">Zscaler</p>
+                        <span class="cert-year">2024</span>
+                    </div>
+                    <button class="cert-view-btn" onclick="viewCertificate('Zero Trust Cloud Security')">View Certificate</button>
+                </div>
+
+                <!-- Certificate 6 -->
+                <div class="cert-item">
+                    <div>
+                        <h3>Ethical Hacking Internship</h3>
+                        <p class="cert-issuer">EduSkills Academy</p>
+                        <span class="cert-year">2025</span>
+                    </div>
+                    <button class="cert-view-btn" onclick="viewCertificate('Ethical Hacking Internship')">View Certificate</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ACHIEVEMENTS ===== -->
+    <section id="achievements">
+        <div class="wrap">
+            <div class="section-head">
+                <h2 class="h">Achievements &amp; Skills</h2>
+                <p class="section-sub">
+                    Recognition for excellence and core competencies.
+                </p>
+            </div>
+
+            <div class="layers">
+                <div class="layer">
+                    <p class="layer-name">Achievements</p>
+                    <div class="skill-tags">
+                        <span>Volunteer - Bundelkhand Hackathon 2024</span>
+                        <span>Best Presenter - Soft Skills Development Program (BTIRT)</span>
+                    </div>
+                </div>
+
+                <div class="layer">
+                    <p class="layer-name">Soft Skills</p>
+                    <div class="skill-tags">
+                        <span>Communication &amp; Teamwork</span><span>Problem-Solving</span><span>Leadership</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact">
+        <div class="wrap">
+            <div class="contact-box">
+                <div>
+                    <h2 class="h">Let's talk</h2>
+                    <p style="color:var(--ink-soft)">
+                        Open to internships, research assistantships, and interesting collaborations.
+                        The fastest way to reach me is email.
+                    </p>
+                </div>
+
+                <ul class="contact-list">
+                    <li><a href="mailto:lsatendra716@gmail.com">lsatendra716@gmail.com</a></li>
+                    <li><a href="https://linkedin.com/in/satendra-lodhi" target="_blank" rel="noopener">Linkedin</a></li>
+                    <li><a href="https://github.com/satendra82" target="_blank" rel="noopener">Github.com</a></li>
+                    <li><a href="tel:+918234092608">+91 8234092608</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="wrap footer-inner">
+        <span>&copy; 2026 Satendra Lodhi</span>
+        <span>Built with HTML, CSS &amp; JavaScript</span>
+    </div>
+</footer>
+
+<!-- my js file, right before closing body tag -->
+<script src="/static/js/script.js"></script>
+</body>
+</html>
