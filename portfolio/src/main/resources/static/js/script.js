@@ -29,19 +29,13 @@ function drawNetwork() {
     }
 }
 
-// the hero is always visible as soon as the page loads, so just draw
-// the network straight away instead of waiting to detect a scroll
 drawNetwork();
 
-// if the user has asked for reduced motion, stop the flowing dots
-// (the CSS media query already handles css animations, but SMIL/animateMotion
-// needs to be turned off manually like this)
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const flowDots = document.getElementById('flow-dots');
     if (flowDots) flowDots.remove();
 }
 
-// every second or so, light up a random node just for a nice touch
 function pulse() {
     const randomNode = nodes[Math.floor(Math.random() * nodes.length)];
     randomNode.classList.add('active');
@@ -52,3 +46,14 @@ function pulse() {
 }
 
 setInterval(pulse, 1100);
+
+// ---- contact section scroll animation ----
+const contactItems = document.querySelectorAll('.contact-anim');
+const contactObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.2 });
+contactItems.forEach(item => contactObserver.observe(item));
