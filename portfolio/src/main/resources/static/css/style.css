@@ -656,6 +656,7 @@ footer {
 
 
 
+
 /* ================= CONTACT SCROLL ANIMATION ================= */
 @keyframes slideInLeft {
     from { opacity: 0; transform: translateX(-80px); }
@@ -664,12 +665,9 @@ footer {
 
 .contact-anim {
     opacity: 0;
+    transform: translateX(-80px);
 }
 
 .contact-anim.go {
     animation: slideInLeft 0.7s ease forwards;
-}
-
-.contact-anim.go:nth-child(2) {
-    animation-delay: 0.25s;
 }

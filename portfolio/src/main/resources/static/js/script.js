@@ -44,8 +44,6 @@ function pulse() {
 setInterval(pulse, 1100);
 
 // ---- contact animation ----
-// Simple scroll listener - jab #contact section screen pe aaye
-// toh .contact-anim elements par 'go' class lagao
 function checkContact() {
     var section = document.getElementById('contact');
     if (!section) return;
@@ -53,14 +51,14 @@ function checkContact() {
     var rect = section.getBoundingClientRect();
     if (rect.top < window.innerHeight - 100) {
         var items = section.querySelectorAll('.contact-anim');
-        items.forEach(function(el) {
-            el.classList.add('go');
+        items.forEach(function(el, i) {
+            setTimeout(function() {
+                el.classList.add('go');
+            }, i * 250);
         });
-        // Observer ki zaroorat nahi ab, remove kar do
         window.removeEventListener('scroll', checkContact);
     }
 }
 
 window.addEventListener('scroll', checkContact);
-// Page load pe bhi ek baar check karo
 checkContact();
