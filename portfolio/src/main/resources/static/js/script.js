@@ -52,3 +52,32 @@ function pulse() {
 }
 
 setInterval(pulse, 1100);
+// ---- contact section scroll animation ----
+window.addEventListener('load', function () {
+    var contactItems = document.querySelectorAll('.contact-anim');
+
+    contactItems.forEach(function (item) {
+        var rect = item.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+            // already visible on load - animate after short delay
+            setTimeout(function () {
+                item.classList.add('visible');
+            }, 300);
+        }
+    });
+
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0 });
+
+    contactItems.forEach(function (item) {
+        if (!item.classList.contains('visible')) {
+            observer.observe(item);
+        }
+    });
+});

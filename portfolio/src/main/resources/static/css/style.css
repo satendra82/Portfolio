@@ -653,3 +653,13 @@ footer {
     flex-wrap: wrap;
     gap: 10px;
 }
+/* ================= CONTACT SCROLL ANIMATION ================= */
+.contact-anim {
+    opacity: 0;
+    transform: translateX(-80px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.contact-anim.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
