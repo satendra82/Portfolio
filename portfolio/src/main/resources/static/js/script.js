@@ -44,21 +44,35 @@ function pulse() {
 setInterval(pulse, 1100);
 
 // ---- contact animation ----
-function checkContact() {
-    var section = document.getElementById('contact');
-    if (!section) return;
+// Pehle elements ko JS se hide karo (CSS se nahi)
+// Taaki JS fail hone par bhi content dikhe
+document.addEventListener('DOMContentLoaded', function () {
+    var items = document.querySelectorAll('#contact .contact-anim');
 
-    var rect = section.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 100) {
-        var items = section.querySelectorAll('.contact-anim');
-        items.forEach(function(el, i) {
-            setTimeout(function() {
-                el.classList.add('go');
-            }, i * 250);
-        });
-        window.removeEventListener('scroll', checkContact);
+    // JS se hide karo
+    items.forEach(function (el) {
+        el.style.opacity = '0';
+        el.style.transform = 'translateX(-80px)';
+        el.style.transition = 'none';
+    });
+
+    function triggerAnimation() {
+        var section = document.getElementById('contact');
+        if (!section) return;
+        var rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 50) {
+            items.forEach(function (el, i) {
+                setTimeout(function () {
+                    el.classList.add('go');
+                    el.style.opacity = '';
+                    el.style.transform = '';
+                    el.style.transition = '';
+                }, i * 250);
+            });
+            window.removeEventListener('scroll', triggerAnimation);
+        }
     }
-}
 
-window.addEventListener('scroll', checkContact);
-checkContact();
+    window.addEventListener('scroll', triggerAnimation);
+    triggerAnimation();
+});
