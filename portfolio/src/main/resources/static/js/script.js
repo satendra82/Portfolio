@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     contactList.style.opacity = '0';
     contactList.style.transform = 'translateX(80px)';
-    contactList.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+    contactList.style.transition = 'opacity 1.5s ease, transform 1.5s ease';
 
     window.addEventListener('scroll', function () {
         var section = document.getElementById('contact');
