@@ -43,36 +43,28 @@ function pulse() {
 
 setInterval(pulse, 1100);
 
-// ---- contact animation ----
-// Pehle elements ko JS se hide karo (CSS se nahi)
-// Taaki JS fail hone par bhi content dikhe
+// ---- contact animation - har baar scroll pe ----
 document.addEventListener('DOMContentLoaded', function () {
-    var items = document.querySelectorAll('#contact .contact-anim');
+    var contactList = document.getElementById('contact-list-anim');
+    if (!contactList) return;
 
-    // JS se hide karo
-    items.forEach(function (el) {
-        el.style.opacity = '0';
-        el.style.transform = 'translateX(80px)';
-        el.style.transition = 'none';
-    });
+    contactList.style.opacity = '0';
+    contactList.style.transform = 'translateX(80px)';
+    contactList.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
 
-    function triggerAnimation() {
+    window.addEventListener('scroll', function () {
         var section = document.getElementById('contact');
         if (!section) return;
         var rect = section.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 50) {
-            items.forEach(function (el, i) {
-                setTimeout(function () {
-                    el.classList.add('go');
-                    el.style.opacity = '';
-                    el.style.transform = '';
-                    el.style.transition = '';
-                }, i * 250);
-            });
-            window.removeEventListener('scroll', triggerAnimation);
-        }
-    }
 
-    window.addEventListener('scroll', triggerAnimation);
-    triggerAnimation();
+        if (rect.top < window.innerHeight - 50) {
+            // Section visible - animate in
+            contactList.style.opacity = '1';
+            contactList.style.transform = 'translateX(0)';
+        } else {
+            // Section bahar - reset karo
+            contactList.style.opacity = '0';
+            contactList.style.transform = 'translateX(80px)';
+        }
+    });
 });
