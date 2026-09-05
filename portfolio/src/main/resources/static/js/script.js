@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // JS se hide karo
     items.forEach(function (el) {
         el.style.opacity = '0';
-        el.style.transform = 'translateX(-80px)';
+        el.style.transform = 'translateX(80px)';
         el.style.transition = 'none';
     });
 

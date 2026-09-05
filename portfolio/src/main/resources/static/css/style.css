@@ -659,11 +659,11 @@ footer {
 
 
 /* ================= CONTACT SCROLL ANIMATION ================= */
-@keyframes slideInLeft {
-    from { opacity: 0; transform: translateX(-80px); }
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(80px); }
     to   { opacity: 1; transform: translateX(0); }
 }
 
 .contact-anim.go {
-    animation: slideInLeft 0.7s ease forwards;
+    animation: slideInRight 0.9s ease forwards;
 }
