@@ -43,28 +43,36 @@ function pulse() {
 
 setInterval(pulse, 1100);
 
-// ---- contact animation - har baar scroll pe ----
+// ---- contact list - ek ek line animation ----
 document.addEventListener('DOMContentLoaded', function () {
     var contactList = document.getElementById('contact-list-anim');
     if (!contactList) return;
 
-    contactList.style.opacity = '0';
-    contactList.style.transform = 'translateX(80px)';
-    contactList.style.transition = 'opacity 1.5s ease, transform 1.5s ease';
+    var items = contactList.querySelectorAll('li');
 
-    window.addEventListener('scroll', function () {
+    // Har li ko JS se hide karo
+    items.forEach(function (li) {
+        li.style.opacity = '0';
+        li.style.transform = 'translateX(80px)';
+        li.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    });
+
+    function triggerAnimation() {
         var section = document.getElementById('contact');
         if (!section) return;
         var rect = section.getBoundingClientRect();
-
         if (rect.top < window.innerHeight - 50) {
-            // Section visible - animate in
-            contactList.style.opacity = '1';
-            contactList.style.transform = 'translateX(0)';
-        } else {
-            // Section bahar - reset karo
-            contactList.style.opacity = '0';
-            contactList.style.transform = 'translateX(80px)';
+            // Har li ek ek karke aaye - 200ms delay
+            items.forEach(function (li, i) {
+                setTimeout(function () {
+                    li.style.opacity = '1';
+                    li.style.transform = 'translateX(0)';
+                }, i * 200);
+            });
+            window.removeEventListener('scroll', triggerAnimation);
         }
-    });
+    }
+
+    window.addEventListener('scroll', triggerAnimation);
+    triggerAnimation();
 });
