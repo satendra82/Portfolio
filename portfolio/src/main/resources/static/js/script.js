@@ -158,3 +158,39 @@ function closeCertModal() {
 document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeCertModal();
 });
+// ---- internship cards scroll animation ----
+document.addEventListener('DOMContentLoaded', function () {
+    var cards = document.querySelectorAll('.internship-card');
+
+    // Odd = left se, Even = right se
+    cards.forEach(function (card, i) {
+        if (i % 2 !== 0) {
+            card.classList.add('even');
+        }
+    });
+
+    function checkCards() {
+        cards.forEach(function (card) {
+            var rect = card.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 80) {
+                card.classList.add('visible');
+            } else {
+                card.classList.remove('visible');
+                // Reset direction
+                if (card.classList.contains('even')) {
+                    card.style.transform = 'translateX(80px)';
+                } else {
+                    card.style.transform = 'translateX(-80px)';
+                }
+                card.style.opacity = '0';
+                // Force reflow
+                void card.offsetWidth;
+                card.style.transform = '';
+                card.style.opacity = '';
+            }
+        });
+    }
+
+    window.addEventListener('scroll', checkCards);
+    checkCards();
+});

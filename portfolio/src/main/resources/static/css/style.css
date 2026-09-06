@@ -691,3 +691,28 @@ footer {
     0%, 100% { opacity: 1; }
     50%       { opacity: 0; }
 }
+/* ================= PROJECT CARD HOVER EFFECT ================= */
+.project {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(23, 27, 46, 0.12);
+}
+
+/* ================= INTERNSHIP CARDS SCROLL ANIMATION ================= */
+.internship-card {
+    opacity: 0;
+    transform: translateX(-80px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.internship-card.even {
+    transform: translateX(80px);
+}
+
+.internship-card.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
