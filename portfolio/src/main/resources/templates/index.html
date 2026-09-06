@@ -30,6 +30,7 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
     </div>
+    <div id="scroll-progress"></div>
 </nav>
 
 <!-- ===== HERO / INTRO SECTION ===== -->
@@ -38,7 +39,7 @@
 
         <div>
             <p class="eyebrow-line">B.Tech, Computer Science Engineering (AI &amp; ML)</p>
-            <h1 class="title">Satendra Lodhi</h1>
+            <h1 class="title"><span id="typing-text"></span><span class="cursor">|</span></h1>
             <p class="lede">
                 I build full-stack web applications - from <mark>Spring Boot backends</mark>
                 to responsive front ends - turning coursework into real, working products.
@@ -378,23 +379,6 @@
     </div>
 </div>
 
-<script>
-    function openCertModal(el) {
-        var pdf = el.getAttribute('data-pdf');
-        document.getElementById('certFrame').src = pdf;
-        var modal = document.getElementById('certModal');
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    }
-    function closeCertModal() {
-        document.getElementById('certModal').style.display = 'none';
-        document.getElementById('certFrame').src = '';
-        document.body.style.overflow = '';
-    }
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closeCertModal();
-    });
-</script>
 
 </body>
 </html>

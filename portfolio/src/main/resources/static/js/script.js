@@ -87,3 +87,74 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', triggerAnimation);
     triggerAnimation();
 });
+// ---- scroll progress bar ----
+window.addEventListener('scroll', function () {
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = (scrollTop / docHeight) * 100;
+    document.getElementById('scroll-progress').style.width = progress + '%';
+});
+
+// ---- typing animation ----
+var typingEl = document.getElementById('typing-text');
+var text = 'Satendra Lodhi';
+var i = 0;
+var isDeleting = false;
+var pause = false;
+
+function type() {
+    if (pause) return;
+
+    if (!isDeleting && i <= text.length) {
+        typingEl.textContent = text.slice(0, i);
+        i++;
+        if (i > text.length) {
+            // Poora type ho gaya - 2 second ruko phir delete
+            pause = true;
+            setTimeout(function () {
+                pause = false;
+                isDeleting = true;
+                type();
+            }, 2000);
+            return;
+        }
+    } else if (isDeleting && i >= 0) {
+        typingEl.textContent = text.slice(0, i);
+        i--;
+        if (i < 0) {
+            // Poora delete ho gaya - thoda ruko phir dobara type karo
+            pause = true;
+            setTimeout(function () {
+                pause = false;
+                isDeleting = false;
+                i = 0;
+                type();
+            }, 500);
+            return;
+        }
+    }
+
+    setTimeout(type, isDeleting ? 60 : 100);
+}
+
+// Page load ke baad 500ms delay se shuru karo
+setTimeout(type, 500);
+
+// ---- certificate modal ----
+function openCertModal(el) {
+    var pdf = el.getAttribute('data-pdf');
+    document.getElementById('certFrame').src = pdf;
+    var modal = document.getElementById('certModal');
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeCertModal() {
+    document.getElementById('certModal').style.display = 'none';
+    document.getElementById('certFrame').src = '';
+    document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeCertModal();
+});
