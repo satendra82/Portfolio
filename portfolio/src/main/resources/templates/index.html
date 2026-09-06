@@ -242,7 +242,7 @@
                         <h3>Google Android Developer Virtual Internship</h3>
                         <div class="meta-col">
                             <span class="date-badge">Apr - Jun 2024</span>
-                            <a class="cert-view-btn" href="/certificates/certification1.pdf">View Certificate</a>
+                            <a class="cert-view-btn" href="#" data-pdf="/certificates/certification1.pdf" onclick="openCertModal(this); return false;">View Certificate</a>
                         </div>
                     </div>
                     <p class="internship-desc">Mobile app development with Android ecosystem, focusing on native development practices.</p>
@@ -253,7 +253,7 @@
                         <h3>Zscaler Zero Trust Cloud Security Virtual Internship</h3>
                         <div class="meta-col">
                             <span class="date-badge">Jul - Sep 2024</span>
-                            <a class="cert-view-btn" href="/certificates/certificate2.pdf">View Certificate</a>
+                            <a class="cert-view-btn" href="#" data-pdf="/certificates/certificate2.pdf" onclick="openCertModal(this); return false;">View Certificate</a>
                         </div>
                     </div>
                     <p class="internship-desc">Cloud security architecture, zero-trust model implementation, and modern cybersecurity practices.</p>
@@ -264,7 +264,7 @@
                         <h3>AWS Cloud Virtual Internship</h3>
                         <div class="meta-col">
                             <span class="date-badge">Oct - Dec 2024</span>
-                            <a class="cert-view-btn" href="/certificates/certification3.pdf">View Certificate</a>
+                            <a class="cert-view-btn" href="#" data-pdf="/certificates/certification3.pdf" onclick="openCertModal(this); return false;">View Certificate</a>
                         </div>
                     </div>
                     <p class="internship-desc">AWS services, cloud infrastructure, EC2, S3, RDS, and building scalable cloud solutions.</p>
@@ -275,7 +275,7 @@
                         <h3>Zscaler Networking Virtual Internship</h3>
                         <div class="meta-col">
                             <span class="date-badge">Jan - Mar 2025</span>
-                            <a class="cert-view-btn" href="/certificates/certificate4.pdf">View Certificate</a>
+                            <a class="cert-view-btn" href="#" data-pdf="/certificates/certificate4.pdf" onclick="openCertModal(this); return false;">View Certificate</a>
                         </div>
                     </div>
                     <p class="internship-desc">Network security fundamentals, routing protocols, and enterprise networking solutions.</p>
@@ -286,7 +286,7 @@
                         <h3>EduSkills Academy Ethical Hacking Virtual Internship</h3>
                         <div class="meta-col">
                             <span class="date-badge">Jul - Sep 2025</span>
-                            <a class="cert-view-btn" href="/certificates/certification5.pdf">View Certificate</a>
+                            <a class="cert-view-btn" href="#" data-pdf="/certificates/certification5.pdf" onclick="openCertModal(this); return false;">View Certificate</a>
                         </div>
                     </div>
                     <p class="internship-desc">Penetration testing, vulnerability assessment, and ethical hacking methodologies.</p>
@@ -297,7 +297,7 @@
                         <h3>UI-Path Automation Business Analyst Associate Virtual Internship</h3>
                         <div class="meta-col">
                             <span class="date-badge">Oct - Dec 2025</span>
-                            <a class="cert-view-btn" href="/certificates/certification6.pdf">View Certificate</a>
+                            <a class="cert-view-btn" href="#" data-pdf="/certificates/certification6.pdf" onclick="openCertModal(this); return false;">View Certificate</a>
                         </div>
                     </div>
                     <p class="internship-desc">RPA concepts, UiPath platform, process automation, and business process optimization.</p>
@@ -349,8 +349,8 @@
 
                 <ul class="contact-list contact-anim" id="contact-list-anim">
                     <li><a href="mailto:lsatendra716@gmail.com">lsatendra716@gmail.com</a></li>
-                    <li><a href="https://linkedin.com/in/satendra-lodhi">Linkedin</a></li>
-                    <li><a href="https://github.com/satendra82">Github.com</a></li>
+                    <li><a href="https://linkedin.com/in/satendra-lodhi" target="_blank" rel="noopener">Linkedin</a></li>
+                    <li><a href="https://github.com/satendra82" target="_blank" rel="noopener">Github.com</a></li>
                     <li><a href="tel:+918234092608">+91 8234092608</a></li>
                 </ul>
             </div>
@@ -368,5 +368,33 @@
 
 <!-- my js file, right before closing body tag -->
 <script src="/js/script.js"></script>
+
+<!-- ===== CERTIFICATE MODAL ===== -->
+<div id="certModal" style="display:none; position:fixed; inset:0; z-index:999; align-items:center; justify-content:center;">
+    <div id="certBackdrop" onclick="closeCertModal()" style="position:absolute; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(6px);"></div>
+    <div style="position:relative; z-index:1000; width:90%; max-width:900px; height:85vh; background:#fff; border-radius:4px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+        <button onclick="closeCertModal()" style="position:absolute; top:12px; right:16px; background:#B5542A; color:#fff; border:none; border-radius:3px; padding:6px 14px; font-size:0.9rem; cursor:pointer; z-index:10;">✕ Close</button>
+        <iframe id="certFrame" src="" style="width:100%; height:100%; border:none;"></iframe>
+    </div>
+</div>
+
+<script>
+    function openCertModal(el) {
+        var pdf = el.getAttribute('data-pdf');
+        document.getElementById('certFrame').src = pdf;
+        var modal = document.getElementById('certModal');
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    function closeCertModal() {
+        document.getElementById('certModal').style.display = 'none';
+        document.getElementById('certFrame').src = '';
+        document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeCertModal();
+    });
+</script>
+
 </body>
 </html>
