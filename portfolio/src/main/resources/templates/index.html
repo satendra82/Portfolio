@@ -7,6 +7,108 @@
 
     <!-- my css file -->
     <link rel="stylesheet" href="/css/style.css">
+
+    <!-- projects switcher (names in a line, card opens on hover) -->
+    <style>
+        .proj-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .proj-tab {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            color: var(--ink);
+            background: var(--paper-soft);
+            border: 1px solid var(--line);
+            border-radius: 3px;
+            padding: 10px 16px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+        .proj-tab .proj-num {
+            font-size: 0.72rem;
+            color: var(--rust);
+            transition: color 0.2s ease;
+        }
+        .proj-tab:hover {
+            border-color: var(--rust);
+            transform: translateY(-2px);
+        }
+        .proj-tab.active {
+            background: var(--rust);
+            border-color: var(--rust);
+            color: var(--paper);
+        }
+        .proj-tab.active .proj-num { color: var(--paper); }
+        .proj-tab { position: relative; }
+        .proj-tab.active {
+            box-shadow: 0 4px 12px rgba(181, 84, 42, 0.28);
+        }
+        /* little arrow under the open project's name, pointing at its card */
+        .proj-tab.active::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -6px;
+            width: 10px;
+            height: 10px;
+            background: var(--rust);
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        /* all 4 cards sit in the same grid cell, so the box never jumps in height */
+        .proj-stage { display: grid; }
+
+        /* same look as .internship-card, but its own class so the internship scroll animation doesn't touch it */
+        .proj-panel {
+            grid-area: 1 / 1;
+            padding: 20px;
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            background: var(--paper-soft);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.35s ease, transform 0.35s ease, border-color 0.25s ease, box-shadow 0.25s ease, visibility 0s linear 0.35s;
+        }
+        .proj-panel.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            transition: opacity 0.35s ease, transform 0.35s ease, border-color 0.25s ease, box-shadow 0.25s ease, visibility 0s;
+        }
+        .proj-panel { border-left: 4px solid var(--rust); }
+        .proj-panel.active {
+            background: linear-gradient(rgba(181, 84, 42, 0.07), rgba(181, 84, 42, 0.07)), var(--paper-soft);
+            border-color: rgba(181, 84, 42, 0.45);
+            border-left-color: var(--rust);
+        }
+        .proj-panel:hover {
+            border-color: var(--rust);
+            box-shadow: 0 4px 12px rgba(181, 84, 42, 0.12);
+        }
+        .proj-panel h3 {
+            margin: 0;
+            font-family: var(--serif);
+            font-size: 1.08rem;
+            font-weight: 600;
+            flex: 1;
+        }
+        .proj-panel .metric { margin: 14px 0 0; }
+        .proj-panel .tech-row { margin: 12px 0 0; }
+        .proj-btn-row { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+
+        @media (max-width: 720px) {
+            .proj-panel { padding: 16px; }
+            .proj-tab.active::after { display: none; }
+            .proj-btn-row { justify-content: flex-start; }
+        }
+    </style>
 </head>
 <body>
 
@@ -184,83 +286,113 @@
                 <p class="section-sub">Full-stack and front-end projects I've built, from database schema to UI.</p>
             </div>
 
-            <div class="projects">
-
-                <!-- project 1 -->
-                <div class="project" data-tag="Full-Stack">
-                    <h3>XansaStay - Hotel Management System</h3>
-                    <p>
-                        A full-stack hotel booking platform with room browsing, availability search,
-                        booking, favourites, and Razorpay payment integration. Includes an admin dashboard
-                        to manage rooms, bookings, guests, checkouts, reviews, and discount coupons - with
-                        multi-image upload and room status tracking.
-                    </p>
-                    <span class="metric">Admin dashboard + payments</span>
-                    <div class="tech-row">
-                        <span>Java</span><span>Spring Boot</span><span>Thymeleaf</span><span>PostgreSQL</span>
-                    </div>
-                    <div class="proj-links">
-                        <a href="https://github.com/satendra82/Xansastays">Code</a>
-                        <a href="https://xansastays.onrender.com/">Live demo</a>
-                    </div>
+            <!-- project names in one line: hover (or tap) on a name opens its card -->
+            <div class="proj-switcher" id="projSwitcher">
+                <div class="proj-tabs" role="tablist">
+                    <button type="button" class="proj-tab active" role="tab" data-target="proj-xansa"><span class="proj-num">01</span>XansaStay</button>
+                    <button type="button" class="proj-tab" role="tab" data-target="proj-aastha"><span class="proj-num">02</span>Aastha Medical</button>
+                    <button type="button" class="proj-tab" role="tab" data-target="proj-amazon"><span class="proj-num">03</span>Amazon Clone</button>
+                    <button type="button" class="proj-tab" role="tab" data-target="proj-portfolio"><span class="proj-num">04</span>Portfolio Website</button>
                 </div>
 
-                <!-- project 2 - Aastha Medical -->
-                <div class="project" data-tag="Full-Stack">
-                    <h3>Aastha Medical - Pharmacy Billing System</h3>
-                    <p>
-                        A billing and stock system for a medical shop. It sells from the earliest-expiring
-                        batch first (FEFO), and row locking stops two staff from selling the same last strip.
-                        Includes admin/staff roles, cash and UPI payments, returns with stock put back,
-                        and an audit log.
-                    </p>
-                    <span class="metric">FEFO billing + UPI payments + audit log</span>
-                    <div class="tech-row">
-                        <span>Java</span><span>Spring Boot</span><span>Spring Security</span><span>Thymeleaf</span><span>PostgreSQL</span><span>Docker</span>
-                    </div>
-                    <div class="proj-links">
-                        <a href="https://github.com/satendra82/Medical-Billing-System">Code</a>
-                        <a href="https://medical-billing-system-ueug.onrender.com">Live demo</a>
-                        <a href="/aastha-medical.html">Screenshots</a>
-                    </div>
-                </div>
+                <div class="proj-stage">
 
-                <!-- project 3 -->
-                <div class="project" data-tag="Frontend">
-                    <h3>Amazon Clone Website</h3>
-                    <p>
-                        A responsive Amazon-inspired e-commerce front end with a homepage, navigation bar,
-                        product sections, and footer - built with product cards, category sections, and
-                        offer banners.
-                    </p>
-                    <span class="metric">Fully responsive UI</span>
-                    <div class="tech-row">
-                        <span>HTML</span><span>CSS</span>
+                    <!-- project 1 -->
+                    <div class="proj-panel active" id="proj-xansa">
+                        <div class="internship-header">
+                            <h3>XansaStay - Hotel Management System</h3>
+                            <div class="meta-col">
+                                <span class="date-badge">Full-Stack</span>
+                                <div class="proj-btn-row">
+                                    <a class="cert-view-btn" href="https://github.com/satendra82/Xansastays">Code</a>
+                                    <a class="cert-view-btn" href="https://xansastays.onrender.com/">Live demo</a>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="internship-desc">
+                            A full-stack hotel booking platform with room browsing, availability search,
+                            booking, favourites, and Razorpay payment integration. Includes an admin dashboard
+                            to manage rooms, bookings, guests, checkouts, reviews, and discount coupons - with
+                            multi-image upload and room status tracking.
+                        </p>
+                        <span class="metric">Admin dashboard + payments</span>
+                        <div class="tech-row">
+                            <span>Java</span><span>Spring Boot</span><span>Thymeleaf</span><span>PostgreSQL</span>
+                        </div>
                     </div>
-                    <div class="proj-links">
-                        <a href="https://github.com/satendra82">Code</a>
-                        <a href="https://github.com/satendra82">Live demo</a>
-                    </div>
-                </div>
 
-                <!-- project 3 - this site -->
-                <div class="project" data-tag="Full-Stack">
-                    <h3>Personal Portfolio Website</h3>
-                    <p>
-                        The site you're looking at right now - a Spring Boot + Thymeleaf portfolio with
-                        an animated neural-network hero, a certificate viewer, scroll-progress bar, and
-                        a typing intro effect.
-                    </p>
-                    <span class="metric">Live animations + PDF viewer</span>
-                    <div class="tech-row">
-                        <span>Java</span><span>Spring Boot</span><span>Thymeleaf</span><span>JavaScript</span>
+                    <!-- project 2 - Aastha Medical -->
+                    <div class="proj-panel" id="proj-aastha">
+                        <div class="internship-header">
+                            <h3>Aastha Medical - Pharmacy Billing System</h3>
+                            <div class="meta-col">
+                                <span class="date-badge">Full-Stack</span>
+                                <div class="proj-btn-row">
+                                    <a class="cert-view-btn" href="https://github.com/satendra82/Medical-Billing-System">Code</a>
+                                    <a class="cert-view-btn" href="https://medical-billing-system-ueug.onrender.com">Live demo</a>
+                                    <a class="cert-view-btn" href="/aastha-medical.html">Screenshots</a>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="internship-desc">
+                            A billing and stock system for a medical shop. It sells from the earliest-expiring
+                            batch first (FEFO), and row locking stops two staff from selling the same last strip.
+                            Includes admin/staff roles, cash and UPI payments, returns with stock put back,
+                            and an audit log.
+                        </p>
+                        <span class="metric">FEFO billing + UPI payments + audit log</span>
+                        <div class="tech-row">
+                            <span>Java</span><span>Spring Boot</span><span>Spring Security</span><span>Thymeleaf</span><span>PostgreSQL</span><span>Docker</span>
+                        </div>
                     </div>
-                    <div class="proj-links">
-                        <a href="https://github.com/satendra82">Code</a>
-                        <a href="https://satendra-lodhi.onrender.com/">Live demo</a>
-                    </div>
-                </div>
 
+                    <!-- project 3 -->
+                    <div class="proj-panel" id="proj-amazon">
+                        <div class="internship-header">
+                            <h3>Amazon Clone Website</h3>
+                            <div class="meta-col">
+                                <span class="date-badge">Frontend</span>
+                                <div class="proj-btn-row">
+                                    <a class="cert-view-btn" href="https://github.com/satendra82">Code</a>
+                                    <a class="cert-view-btn" href="https://github.com/satendra82">Live demo</a>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="internship-desc">
+                            A responsive Amazon-inspired e-commerce front end with a homepage, navigation bar,
+                            product sections, and footer - built with product cards, category sections, and
+                            offer banners.
+                        </p>
+                        <span class="metric">Fully responsive UI</span>
+                        <div class="tech-row">
+                            <span>HTML</span><span>CSS</span>
+                        </div>
+                    </div>
+
+                    <!-- project 4 - this site -->
+                    <div class="proj-panel" id="proj-portfolio">
+                        <div class="internship-header">
+                            <h3>Personal Portfolio Website</h3>
+                            <div class="meta-col">
+                                <span class="date-badge">Full-Stack</span>
+                                <div class="proj-btn-row">
+                                    <a class="cert-view-btn" href="https://github.com/satendra82">Code</a>
+                                    <a class="cert-view-btn" href="https://satendra-lodhi.onrender.com/">Live demo</a>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="internship-desc">
+                            The site you're looking at right now - a Spring Boot + Thymeleaf portfolio with
+                            an animated neural-network hero, a certificate viewer, scroll-progress bar, and
+                            a typing intro effect.
+                        </p>
+                        <span class="metric">Live animations + PDF viewer</span>
+                        <div class="tech-row">
+                            <span>Java</span><span>Spring Boot</span><span>Thymeleaf</span><span>JavaScript</span>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </section>
@@ -435,6 +567,35 @@
 
 <!-- my js file, right before closing body tag -->
 <script src="/js/script.js"></script>
+
+<!-- projects switcher script -->
+<script>
+    (function () {
+        var box = document.getElementById('projSwitcher');
+        if (!box) return;
+        var tabs = box.querySelectorAll('.proj-tab');
+        var panels = box.querySelectorAll('.proj-panel');
+        var timer = null;
+
+        function show(tab) {
+            tabs.forEach(function (t) { t.classList.toggle('active', t === tab); });
+            panels.forEach(function (p) { p.classList.toggle('active', p.id === tab.dataset.target); });
+        }
+
+        tabs.forEach(function (tab) {
+            // desktop: open when the cursor comes on the name (tiny delay so quick passes don't flicker)
+            tab.addEventListener('mouseenter', function () {
+                clearTimeout(timer);
+                timer = setTimeout(function () { show(tab); }, 70);
+            });
+            tab.addEventListener('mouseleave', function () { clearTimeout(timer); });
+            // mobile / keyboard: tap or focus also opens it
+            tab.addEventListener('click', function () { show(tab); });
+            tab.addEventListener('focus', function () { show(tab); });
+        });
+    })();
+</script>
+
 
 <!-- ===== CERTIFICATE MODAL ===== -->
 <div id="certModal" style="display:none; position:fixed; inset:0; z-index:999; align-items:center; justify-content:center;">
