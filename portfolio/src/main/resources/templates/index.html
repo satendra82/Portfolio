@@ -109,8 +109,266 @@
             .proj-btn-row { justify-content: flex-start; }
         }
     </style>
+
+    <!-- welcome card (shows every time the site is opened) -->
+    <style>
+        #welcome {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(23, 27, 46, 0.55);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.45s ease, visibility 0s linear 0.45s;
+        }
+        #welcome.show {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.45s ease, visibility 0s;
+        }
+        .wl-card {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            overflow: hidden;
+            background: var(--paper-soft);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 40px 34px 26px;
+            box-shadow: 0 28px 70px rgba(23, 27, 46, 0.38);
+            transform: translateY(18px) scale(0.98);
+            transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        #welcome.show .wl-card { transform: translateY(0) scale(1); }
+
+        /* rust-to-gold bar on top */
+        .wl-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--rust), var(--gold));
+        }
+        /* faint grid at the top of the card, same idea as the hero background */
+        .wl-card::after {
+            content: "";
+            position: absolute;
+            top: 4px; left: 0; right: 0;
+            height: 150px;
+            pointer-events: none;
+            background-image:
+                    linear-gradient(var(--line) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+            background-size: 28px 28px;
+            opacity: 0.55;
+            -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+            mask-image: linear-gradient(to bottom, black, transparent);
+        }
+        .wl-card > * { position: relative; z-index: 1; }
+
+        /* items fade up one after another */
+        .wl-in {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        #welcome.show .wl-in {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+            transition-delay: calc(var(--i) * 80ms + 180ms);
+        }
+
+        .wl-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 2;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            color: var(--ink-soft);
+            font-size: 1.3rem;
+            line-height: 1;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: color 0.2s ease, background 0.2s ease;
+        }
+        .wl-close:hover { color: var(--rust); background: rgba(181, 84, 42, 0.08); }
+
+        /* monogram: ring draws itself */
+        .wl-mark {
+            position: relative;
+            width: 66px;
+            height: 66px;
+            margin: 0 auto 16px;
+            background: var(--paper-soft);
+            border-radius: 50%;
+        }
+        .wl-mark svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+        .wl-mark .ring {
+            fill: none;
+            stroke: var(--ink);
+            stroke-width: 1.5;
+            stroke-dasharray: 170;
+            transform: rotate(-90deg);
+            transform-origin: 30px 30px;
+        }
+        .wl-mark .dot { fill: var(--rust); }
+        #welcome.show .wl-mark .ring { animation: wlRing 1.2s ease 0.3s both; }
+        @keyframes wlRing { from { stroke-dashoffset: 170; } }
+        .wl-mark span {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--serif);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--ink);
+        }
+
+        .wl-greet {
+            font-family: var(--mono);
+            font-size: 0.76rem;
+            color: var(--rust);
+            margin: 0 0 8px;
+            letter-spacing: 0.06em;
+        }
+        .wl-card h2 {
+            font-family: var(--serif);
+            font-size: 1.8rem;
+            line-height: 1.2;
+            margin: 0 0 8px;
+            color: var(--ink);
+        }
+        /* roles that change every couple of seconds */
+        .wl-role {
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            color: var(--ink-soft);
+            margin: 0 0 14px;
+            min-height: 1.4em;
+        }
+        .wl-role span { display: inline-block; transition: opacity 0.25s ease, transform 0.25s ease; }
+        .wl-role span.swap { opacity: 0; transform: translateY(6px); }
+
+        .wl-text {
+            color: var(--ink-soft);
+            font-size: 0.95rem;
+            margin: 0 0 20px;
+        }
+
+        /* small facts row, numbers are counted from the page itself */
+        .wl-stats {
+            display: flex;
+            justify-content: center;
+            margin: 0 0 22px;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+        .wl-stat { flex: 1; padding: 12px 8px; }
+        .wl-stat + .wl-stat { border-left: 1px solid var(--line); }
+        .wl-stat b {
+            display: block;
+            font-family: var(--serif);
+            font-size: 1.45rem;
+            line-height: 1.1;
+            color: var(--ink);
+        }
+        .wl-stat span {
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            color: var(--ink-soft);
+        }
+
+        .wl-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .wl-actions .btn { padding: 11px 20px; font-size: 0.9rem; }
+
+        .wl-links {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 16px;
+        }
+        .wl-links a, .wl-links button {
+            border: none;
+            background: none;
+            padding: 0;
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--ink-soft);
+            cursor: pointer;
+            text-decoration: underline;
+            text-decoration-color: var(--line);
+            text-underline-offset: 3px;
+        }
+        .wl-links a:hover, .wl-links button:hover { color: var(--rust); text-decoration-color: var(--rust); }
+
+        @media (max-width: 480px) {
+            .wl-card { padding: 34px 20px 22px; }
+            .wl-card h2 { font-size: 1.5rem; }
+            .wl-actions .btn { width: 100%; text-align: center; }
+        }
+    </style>
+    <noscript><style>#welcome { display: none; }</style></noscript>
 </head>
 <body>
+
+<!-- ===== WELCOME CARD ===== -->
+<div id="welcome" role="dialog" aria-modal="true" aria-labelledby="wlTitle">
+    <div class="wl-card">
+        <button type="button" class="wl-close" id="wlClose" aria-label="Close welcome">&times;</button>
+
+        <div class="wl-mark wl-in" style="--i:0">
+            <svg viewBox="0 0 60 60" aria-hidden="true">
+                <circle class="ring" cx="30" cy="30" r="27"></circle>
+                <circle class="dot" cx="30" cy="3" r="3"></circle>
+            </svg>
+            <span>SL</span>
+        </div>
+
+        <p class="wl-greet wl-in" style="--i:1" id="wlGreet"></p>
+        <h2 class="wl-in" style="--i:2" id="wlTitle">Welcome to my portfolio</h2>
+        <p class="wl-role wl-in" style="--i:3"><span id="wlRole">Full-Stack Developer</span></p>
+
+        <p class="wl-text wl-in" style="--i:4">
+            I'm Satendra Lodhi, a CSE (AI &amp; ML) student who builds full-stack web apps
+            with Java and Spring Boot. Have a look around and feel free to get in touch.
+        </p>
+
+        <div class="wl-stats wl-in" style="--i:5">
+            <div class="wl-stat"><b id="wlProjCount">4</b><span>Projects</span></div>
+            <div class="wl-stat"><b id="wlIntCount">6</b><span>Virtual Internships</span></div>
+        </div>
+
+        <div class="wl-actions wl-in" style="--i:6">
+            <a class="btn btn-solid" id="wlProjects" href="#projects">View projects</a>
+            <a class="btn btn-outline"
+               href="/certificates/satendralodhi.pdf"
+               download="Satendra_Lodhi_Resume.pdf">Download Resume</a>
+        </div>
+
+        <div class="wl-links wl-in" style="--i:7">
+            <a href="#contact" id="wlContact">Contact me</a>
+            <button type="button" id="wlSkip">Continue to site</button>
+        </div>
+    </div>
+</div>
 
 <!-- ===== NAVBAR ===== -->
 <nav>
@@ -567,6 +825,68 @@
 
 <!-- my js file, right before closing body tag -->
 <script src="/js/script.js"></script>
+
+
+<!-- welcome card script -->
+<script>
+    (function () {
+        var box = document.getElementById('welcome');
+        if (!box) return;
+
+        // greeting by time of day (+ ?name=Rahul support, textContent so it is safe)
+        var h = new Date().getHours();
+        var part = h < 5 ? 'Good night' : h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : h < 21 ? 'Good evening' : 'Good night';
+        var name = '';
+        try { name = (new URLSearchParams(location.search).get('name') || '').trim().slice(0, 30); } catch (e) {}
+        document.getElementById('wlGreet').textContent = (name ? part + ', ' + name : part).toUpperCase();
+
+        // numbers come from the page itself, so they stay correct when you add more
+        var pc = document.querySelectorAll('#projects .proj-tab').length;
+        var ic = document.querySelectorAll('#internships .internship-card').length;
+        if (pc) document.getElementById('wlProjCount').textContent = pc;
+        if (ic) document.getElementById('wlIntCount').textContent = ic;
+
+        // roles that swap with a small fade
+        var roles = ['Full-Stack Developer', 'Java & Spring Boot', 'AI & ML Student', 'Problem Solver'];
+        var rEl = document.getElementById('wlRole');
+        var ri = 0, rTimer = null;
+        function nextRole() {
+            rEl.classList.add('swap');
+            setTimeout(function () {
+                ri = (ri + 1) % roles.length;
+                rEl.textContent = roles[ri];
+                rEl.classList.remove('swap');
+            }, 260);
+        }
+
+        var isOpen = false;
+        function open() {
+            isOpen = true;
+            document.documentElement.style.overflow = 'hidden';
+            box.classList.add('show');
+            rTimer = setInterval(nextRole, 2300);
+            var first = document.getElementById('wlProjects');
+            if (first) first.focus({ preventScroll: true });
+        }
+        function close() {
+            if (!isOpen) return;
+            isOpen = false;
+            clearInterval(rTimer);
+            box.classList.remove('show');
+            document.documentElement.style.overflow = '';
+        }
+
+        document.getElementById('wlClose').addEventListener('click', close);
+        document.getElementById('wlSkip').addEventListener('click', close);
+        document.getElementById('wlProjects').addEventListener('click', close);  // links still scroll to their section
+        document.getElementById('wlContact').addEventListener('click', close);
+        box.addEventListener('click', function (e) { if (e.target === box) close(); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+
+        // small delay so the page is visible first, then the card slides in
+        setTimeout(open, 400);
+    })();
+</script>
 
 <!-- projects switcher script -->
 <script>
