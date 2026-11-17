@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aastha Medical - Screenshots</title>
+
+    <!-- portfolio ki css file -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        .page {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #B5542A;
+            text-decoration: none;
+        }
+
+        /* slider ka dabba */
+        .slider {
+            position: relative;
+            background: #111;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        /* har slide pehle chhupi rehti hai, sirf active dikhti hai */
+        .slide {
+            display: none;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide img,
+        .slide video {
+            width: 100%;
+            height: 320px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .caption {
+            text-align: center;
+            color: #fff;
+            padding: 10px;
+            margin: 0;
+            background: #222;
+        }
+
+        /* left aur right ke button */
+        .arrow {
+            position: absolute;
+            top: 40%;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            font-size: 28px;
+            padding: 8px 14px;
+            cursor: pointer;
+        }
+
+        .arrow:hover {
+            background: #B5542A;
+        }
+
+        .left {
+            left: 10px;
+        }
+
+        .right {
+            right: 10px;
+        }
+
+        /* neeche ke chhote dots */
+        .dots {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 4px;
+            background: #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: #B5542A;
+        }
+
+        .links a {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 8px 16px;
+            border: 1px solid #B5542A;
+            color: #B5542A;
+            text-decoration: none;
+        }
+
+        .links a:hover {
+            background: #B5542A;
+            color: #fff;
+        }
+
+        /* phone ke liye */
+        @media (max-width: 600px) {
+            .slide img,
+            .slide video {
+                height: 210px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+
+    <a class="back" href="/static#projects">&larr; Back to portfolio</a>
+
+    <h1>Aastha Medical - Pharmacy Billing System</h1>
+    <p>Screens from the billing system I made for a medical shop.</p>
+
+    <div class="slider" id="slider">
+
+        <!-- slide 1: video -->
+        <div class="slide active">
+            <video controls preload="none" poster="/aastha-medical/demo.mp4">
+                <source src="/aastha-medical/demo.mp4" type="video/mp4">
+            </video>
+            <p class="caption">Demo video</p>
+        </div>
+
+        <!-- slide 2 -->
+        <div class="slide">
+            <img src="/aastha-medical/Login.png" alt="Login Page">
+            <p class="caption">Login Page User & Password</p>
+        </div>
+
+        <div class="slide">
+            <img src="/aastha-medical/Home.png" alt="Admin page">
+            <p class="caption">Home: Admin Page  </p>
+        </div>
+        <!-- Slide 3-->
+        <div class="slide">
+            <img src="/aastha-medical/Home1.png" alt="Home Page">
+            <p class="caption">Home: Admin Page </p>
+        </div>
+
+        <!-- slide 4 -->
+        <div class="slide">
+            <img src="/aastha-medical/Billing.png" alt="Billing page">
+            <p class="caption">Billing: cart, discount and Cash / Online payment</p>
+        </div>
+
+        <!-- slide 5 -->
+        <div class="slide">
+            <img src="/aastha-medical/AddPro.png" alt="Add Product page">
+            <p class="caption">Add Products Page: With all details</p>
+        </div>
+
+        <!-- slide 6 -->
+        <div class="slide">
+            <img src="/aastha-medical/Costumer.png" alt="Costumer page">
+            <p class="caption"> Add Costumer Details Page </p>
+        </div>
+
+        <!-- slide 7 -->
+        <div class="slide">
+            <img src="/aastha-medical/ChatAi.png" alt="ChatAi page">
+            <p class="caption">ChatBot </p>
+        </div>
+
+
+        <button class="arrow left" id="prevBtn">&#8249;</button>
+        <button class="arrow right" id="nextBtn">&#8250;</button>
+    </div>
+
+    <div class="dots" id="dots"></div>
+
+    <div class="links">
+        <a href="https://github.com/satendra82/Medical-Billing-System">Code</a>
+        <a href="https://medical-billing-system-ueug.onrender.com">Live demo</a>
+    </div>
+
+</div>
+
+<script>
+    // saari slides ek list me
+    var slides = document.querySelectorAll('.slide');
+    var slider = document.getElementById('slider');
+    var dotsBox = document.getElementById('dots');
+    var video = document.querySelector('video');
+
+    var current = 0;      // abhi kaun si slide dikh rahi hai
+    var timer = null;     // auto slide ka timer
+
+    // har slide ke liye ek dot banao
+    for (var i = 0; i < slides.length; i++) {
+        var dot = document.createElement('span');
+        dot.className = 'dot';
+        dot.setAttribute('data-number', i);
+        dot.onclick = function () {
+            showSlide(Number(this.getAttribute('data-number')));
+        };
+        dotsBox.appendChild(dot);
+    }
+    var dots = document.querySelectorAll('.dot');
+
+    // number wali slide dikhao
+    function showSlide(n) {
+        if (n >= slides.length) {
+            n = 0;
+        }
+        if (n < 0) {
+            n = slides.length - 1;
+        }
+
+        for (var i = 0; i < slides.length; i++) {
+            slides[i].classList.remove('active');
+            dots[i].classList.remove('active');
+        }
+
+        slides[n].classList.add('active');
+        dots[n].classList.add('active');
+        current = n;
+
+        // slide badalne par video rok do
+        video.pause();
+    }
+
+    function nextSlide() {
+        showSlide(current + 1);
+    }
+
+    function prevSlide() {
+        showSlide(current - 1);
+    }
+
+    // har 4 second me agli slide
+    function startAuto() {
+        stopAuto();
+        timer = setInterval(nextSlide, 4000);
+    }
+
+    function stopAuto() {
+        clearInterval(timer);
+    }
+
+    document.getElementById('nextBtn').onclick = nextSlide;
+    document.getElementById('prevBtn').onclick = prevSlide;
+
+    // mouse upar ho to auto slide ruk jaye
+    slider.onmouseenter = stopAuto;
+    slider.onmouseleave = startAuto;
+
+    // video chale to auto slide ruk jaye, band ho to chalu
+    video.onplay = stopAuto;
+    video.onpause = startAuto;
+    video.onended = nextSlide;
+
+    // phone par ungli se swipe
+    var startX = 0;
+
+    slider.ontouchstart = function (e) {
+        startX = e.touches[0].clientX;
+        stopAuto();
+    };
+
+    slider.ontouchend = function (e) {
+        var endX = e.changedTouches[0].clientX;
+        var diff = endX - startX;
+
+        if (diff < -50) {
+            nextSlide();     // left ki taraf swipe
+        } else if (diff > 50) {
+            prevSlide();     // right ki taraf swipe
+        }
+        startAuto();
+    };
+
+    // shuru me pehli slide dikhao aur auto slide chalu karo
+    showSlide(0);
+    startAuto();
+</script>
+
+</body>
+</html>
